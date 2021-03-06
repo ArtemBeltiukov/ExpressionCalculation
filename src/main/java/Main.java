@@ -6,6 +6,8 @@ public class Main {
         List<String> result = new ArrayList<>();
         List<String> stack = new ArrayList<>();
         while (true) {
+            result.clear();
+            stack.clear();
             String string = scanner.nextLine();
             if (string.equals("exit")) {
                 break;
@@ -49,7 +51,7 @@ public class Main {
                                 String el = stack.get(i);
                                 if (!el.equals("(")) {
                                     result.add(el);
-                                    stack.remove(el);
+                                    stack.remove(i);
                                 } else {
                                     stack.remove("(");
                                     stack.remove(")");
@@ -82,11 +84,13 @@ public class Main {
                 if (!item.equals("*") && !item.equals("/") && !item.equals("+") && !item.equals("-")) {
                     stack.add(item);
                 } else if (item.equals("*") || item.equals("/") || item.equals("+") || item.equals("-")) {
-                    double value2 = Double.parseDouble(stack.get(stack.size() - 1));
-                    double value1 = Double.parseDouble(stack.get(stack.size() - 2));
+                    int index1 = stack.size() - 1;
+                    int index2 = stack.size() - 2;
+                    double value2 = Double.parseDouble(stack.get(index1));
+                    double value1 = Double.parseDouble(stack.get(index2));
 
-                    stack.remove(stack.get(stack.size() - 2));
-                    stack.remove(stack.get(stack.size() - 1));
+                    stack.remove(index1);
+                    stack.remove(index2);
 
                     res = 0.0;
                     if (item.equals("*")) {
