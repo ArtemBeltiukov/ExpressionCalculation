@@ -1,23 +1,23 @@
 package services;
 
-
-import java.util.concurrent.ThreadLocalRandom;
-
+import org.junit.Assert;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.core.IsEqual.equalTo;
+
 
 class CalculatorTest {
     Calculator calculator = new Calculator();
-    int min = 1;
-    int max = 1000;
-    double value1 = ThreadLocalRandom.current().nextDouble(min, max + 1);
-    double value2 = ThreadLocalRandom.current().nextDouble(min, max + 1);
-    double value3 = ThreadLocalRandom.current().nextDouble(min, max + 1);
-    double value4 = ThreadLocalRandom.current().nextDouble(min, max + 1);
-    double value5 = ThreadLocalRandom.current().nextDouble(min, max + 1);
 
+    double value1 = 1;
+    double value2 = 2;
+    double value3 = 3;
+    double value4 = 4;
+    double value5 = 5;
 
     @Test
     void addition() {
@@ -37,6 +37,13 @@ class CalculatorTest {
     @Test
     void division() {
         assertThat(value1 / value2,equalTo(calculator.division(value1,value2)));
+    }
+
+
+    @ParameterizedTest
+    @CsvSource({"1,0"})
+    void divisionByZero(int v1, int v2 ) {
+        Assert.assertThrows(IllegalArgumentException.class,()->calculator.division(v1,v2));
     }
 
     @Test
